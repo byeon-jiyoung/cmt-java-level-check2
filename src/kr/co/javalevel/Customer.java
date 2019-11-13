@@ -1,34 +1,37 @@
 package kr.co.javalevel;
 
-public class Customer {
-    public int cusNum;
-    public String cusName;
-
+public class Customer { //고객
+    private int customerNumber;
+    private String customerName;
+    
     public Customer() {}
 
-    public Customer(int cusNum, String cusName) {
-        this.cusNum = cusNum;
-        this.cusName = cusName;
+    public Customer(int customerNumber, String customerName) {
+        this.customerNumber = customerNumber;
+        this.customerName = customerName;
     }
 
-    public int getCusNum() {
-        return cusNum;
+    public int getCustomerNumber() {
+        return customerNumber;
     }
 
-    public void setCusNum(int cusNum) {
-        this.cusNum = cusNum;
+    public void setCustomerNumber(int customerNumber) {
+        this.customerNumber = customerNumber;
     }
 
-    public String getCusName() {
-        return cusName;
+    public String getCustomerName() {
+        return customerName;
     }
 
-    public void setCusName(String cusName) {
-        this.cusName = cusName;
+    public void setCustomerName(String customerName) {
+        this.customerName = customerName;
     }
 
     @Override
     public String toString() {
-        return "Customer [cusNum=" + cusNum + ", cusName=" + cusName + "]";
+        return "Customer [customerNumber=" + customerNumber + ", customerName=" + customerName
+                + "]";
     }
+    
+    
 }

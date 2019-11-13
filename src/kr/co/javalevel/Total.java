@@ -1,5 +1,6 @@
 package kr.co.javalevel;
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -9,21 +10,23 @@ import java.util.List;
 
 public class Total {
     public static void main(String[] args) {
-        List<String> cusList = loadFile("C:\\JavaLevelCheck\\customer.csv");
-        List<String> proList = loadFile("C:\\JavaLevelCheck\\product.csv");
-        List<String> orList = loadFile("C:\\JavaLevelCheck\\order.csv");
+        String dir = System.getProperty("user.dir");
+        List<String> customerList = loadFile(dir + File.separator + "customer.csv");
+        List<String> productList = loadFile(dir + File.separator + "product.csv");
+        List<String> orderList = loadFile(dir + File.separator + "order.csv");
         
-        String[] cusArray = cusList.toArray(new String[cusList.size()]);
-        Customer customer = new Customer(Integer.parseInt(cusArray[0]), cusArray[1]);
-        System.out.println(customer.toString());
+        System.out.println(customerList);
+        System.out.println(productList);
+        System.out.println(orderList);
         
-        String[] proArray = proList.toArray(new String[proList.size()]);
-        Product product = new Product(Integer.parseInt(proArray[0]), proArray[1]);
-        System.out.println(product.toString());
-
-        String[] orArray = orList.toArray(new String[orList.size()]);
-        Order order = new Order(Integer.parseInt(orArray[0]), customer, product);
-        System.out.println(order.toString());
+        Customer customer = new Customer(Integer.parseInt(customerList.get(0)), customerList.get(1));
+        System.out.println(customer.getCustomerNumber() + " " + customer.getCustomerName());
+        
+        Product product = new Product(Integer.parseInt(productList.get(0)), productList.get(1));
+        System.out.println(product.getProductNumber() + " " + product.getProductName());
+        
+//        Order order = new Order(Integer.parseInt(orderList.get(0)), customer, product);
+//        System.out.println(order.getOrderNumber() + " " + order.getCustomerNumber().getCustomerNumber() + " " + order.getProductNumber().getProductNumber());
     }
 
     private static List<String> loadFile(String path) {
@@ -34,7 +37,7 @@ public class Total {
         try {
             br = new BufferedReader(new InputStreamReader(new FileInputStream(path)));
             while ((line = br.readLine()) != null) {
-                if(line.indexOf("½Äº°¹øÈ£") < 0) {
+                if(line.indexOf("ì‹ë³„ë²ˆí˜¸") < 0) {
                     String[] field = line.split(",");
                     
                     for(int i=0; i<field.length; i++) {
@@ -42,9 +45,9 @@ public class Total {
                     }
                 }
             }
-        } catch (FileNotFoundException e) { // ÆÄÀÏÀÇ °æ·Î¸íÀÌ Æ²¸° °æ¿ì
+        } catch (FileNotFoundException e) {
             e.printStackTrace();
-        } catch (IOException e) { // ÆÄÀÏ ÀÐ´Â µ¿¾È ÀÔÃâ·Â ¿À·ù°¡ ¹ß»ýÇÑ °æ¿ì
+        } catch (IOException e) {
             e.printStackTrace();
         } finally {
             if (br != null) {

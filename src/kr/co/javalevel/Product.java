@@ -1,34 +1,36 @@
 package kr.co.javalevel;
 
-public class Product {
-    public int proNum;
-    public String proName;
+public class Product { //상품
+    private int productNumber;
+    private String productName;
 
     public Product() {}
 
-    public Product(int proNum, String proName) {
-        this.proNum = proNum;
-        this.proName = proName;
+    public Product(int productNumber, String productName) {
+        this.productNumber = productNumber;
+        this.productName = productName;
     }
 
-    public int getProNum() {
-        return proNum;
+    public int getProductNumber() {
+        return productNumber;
     }
 
-    public void setProNum(int proNum) {
-        this.proNum = proNum;
+    public void setProductNumber(int productNumber) {
+        this.productNumber = productNumber;
     }
 
-    public String getProName() {
-        return proName;
+    public String getProductName() {
+        return productName;
     }
 
-    public void setProName(String proName) {
-        this.proName = proName;
+    public void setProductName(String productName) {
+        this.productName = productName;
     }
 
-	@Override
-	public String toString() {
-		return "Product [proNum=" + proNum + ", proName=" + proName + "]";
-	}
+    @Override
+    public String toString() {
+        return "Product [productNumber=" + productNumber + ", productName=" + productName + "]";
+    }
+    
+    
 }
