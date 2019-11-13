@@ -1,4 +1,4 @@
-package kr.co.cmt.javalevel;
+package kr.co.javalevel;
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;

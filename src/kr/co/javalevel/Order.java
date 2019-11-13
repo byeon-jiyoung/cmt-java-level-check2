@@ -1,4 +1,4 @@
-package kr.co.cmt.javalevel;
+package kr.co.javalevel;
 
 public class Order {
     public int orNum;
