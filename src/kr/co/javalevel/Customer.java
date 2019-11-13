@@ -6,7 +6,12 @@ public class Customer { //고객
     
     public Customer() {}
 
-    public Customer(int customerNumber, String customerName) {
+    public Customer(int customerNumber) {
+		super();
+		this.customerNumber = customerNumber;
+	}
+
+	public Customer(int customerNumber, String customerName) {
         this.customerNumber = customerNumber;
         this.customerName = customerName;
     }

@@ -6,7 +6,12 @@ public class Product { //상품
 
     public Product() {}
 
-    public Product(int productNumber, String productName) {
+    public Product(int productNumber) {
+		super();
+		this.productNumber = productNumber;
+	}
+
+	public Product(int productNumber, String productName) {
         this.productNumber = productNumber;
         this.productName = productName;
     }

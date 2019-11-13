@@ -7,19 +7,22 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
 public class Total2 {
     public static void main(String[] args) {
-        String dir = System.getProperty("user.dir") + File.separator;
+        String dir = System.getProperty("user.dir") + File.separator + "csv" + File.separator;
         String[] path = {dir + "customer.csv", dir + "product.csv", dir + "order.csv"};
         
         Map<Object, Object> map = loadFile(path);
         
-        System.out.println(map);
-        System.out.println(map.get("order1"));
-        
+        Iterator<Object> iterator = map.keySet().iterator(); // 반복자를 이용해서 출력
+    	while (iterator.hasNext()) { 
+    		int key = (int) iterator.next(); // 키 얻기
+    		System.out.println(map.get(key));  // 출력
+    	}
     }
 
     private static Map<Object, Object> loadFile(String[] path) {
@@ -64,10 +67,18 @@ public class Total2 {
                                 if(i%3==0) {
                                     order.setOrderNumber(Integer.parseInt(field[i]));
                                 }else if(i%3==1) {
-                                    order.setCustomerNumber(Integer.parseInt(field[i]));
+                                	for(Customer customer : customerList) {
+                                		if(customer.getCustomerNumber() == Integer.parseInt(field[i])) {
+                                			order.setCustomerNumber(customer);
+                                		}
+                                	}
                                 }else if(i%3==2) {
-                                    order.setProductNumber(Integer.parseInt(field[i]));
-                                    orderList.add(order);
+                                	for(Product product : productList) {
+                                		if(product.getProductNumber() == Integer.parseInt(field[i])) {
+                                			order.setProductNumber(product);
+                                            orderList.add(order);
+                                		}
+                                	}
                                 }
                             }
                         }
@@ -88,27 +99,16 @@ public class Total2 {
             }
         }
         
-        for(Customer customer : customerList) {
-            map.put("customer"+customer.getCustomerNumber(), customer);
-        }
-        for(Product product : productList) {
-            map.put("product"+product.getProductNumber(), product);
-        }
-        for(Order order : orderList) {
-            map.put("order"+order.getOrderNumber(), order);
-        }
-        //map에 order정보만 담아서 customer랑 product가 다 나오게해보도록
-        
 //        for(Customer customer : customerList) {
-//            list.add(customer);
+//            map.put("customer"+customer.getCustomerNumber(), customer);
 //        }
 //        for(Product product : productList) {
-//            list.add(product);
+//            map.put("product"+product.getProductNumber(), product);
 //        }
-//        for(Order order : orderList) {
-//            list.add(order);
-//        }
-//        System.out.println(list);
+        for(Order order : orderList) {
+            map.put(order.getOrderNumber(), order);
+        }
+        
         return map;
     }
 }
