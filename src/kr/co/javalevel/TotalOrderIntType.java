@@ -12,7 +12,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-public class Total2 {
+public class TotalOrderIntType {
     public static void main(String[] args) {
         String dir = System.getProperty("user.dir") + File.separator + "csv" + File.separator;
         String[] path = { dir + "customer.csv", dir + "product.csv", dir + "order.csv" };
@@ -20,7 +20,7 @@ public class Total2 {
         Map<Object, Object> map = new HashMap<Object, Object>();
         List<Customer> customerList = new ArrayList<Customer>();
         List<Product> productList = new ArrayList<Product>();
-        List<Order> orderList = new ArrayList<Order>();
+        List<OrderIntType> orderList = new ArrayList<OrderIntType>();
 
         BufferedReader br = null;
         String line;
@@ -37,12 +37,9 @@ public class Total2 {
                             for (int i = 0; i < field.length; i++) {
                                 if (i % 2 == 0) {
                                     /*
-                                    try {
-                                        customer.setCustomerNumber(Integer.parseInt(field[i]));
-                                    } catch (Exception e) {
-                                        System.err.println("숫자가 아닙니다.");
-                                    }
-                                    */
+                                     * try { customer.setCustomerNumber(Integer.parseInt(field[i]));
+                                     * } catch (Exception e) { System.err.println("숫자가 아닙니다."); }
+                                     */
                                     customer.setCustomerNumber(Integer.parseInt(field[i]));
                                 } else if (i % 2 == 1) {
                                     customer.setCustomerName(field[i]);
@@ -60,25 +57,15 @@ public class Total2 {
                                 }
                             }
                         } else if (path[z].indexOf("order") >= 0) {
-                            Order order = new Order();
+                            OrderIntType order = new OrderIntType();
                             for (int i = 0; i < field.length; i++) {
                                 if (i % 3 == 0) {
                                     order.setOrderNumber(Integer.parseInt(field[i]));
                                 } else if (i % 3 == 1) {
-                                    for (Customer customer : customerList) {
-                                        if (customer.getCustomerNumber() == Integer
-                                                .parseInt(field[i])) {
-                                            order.setCustomerNumber(customer);
-                                        }
-                                    }
+                                    order.setCustomerNumber(Integer.parseInt(field[i]));
                                 } else if (i % 3 == 2) {
-                                    for (Product product : productList) {
-                                        if (product.getProductNumber() == Integer
-                                                .parseInt(field[i])) {
-                                            order.setProductNumber(product);
-                                            orderList.add(order);
-                                        }
-                                    }
+                                    order.setProductNumber(Integer.parseInt(field[i]));
+                                    orderList.add(order);
                                 }
                             }
                         }
@@ -99,20 +86,27 @@ public class Total2 {
             }
         }
 
-        for (Order order : orderList) {
+        for (OrderIntType order : orderList) {
             map.put(order.getOrderNumber(), order);
         }
 
         Iterator<Object> iterator = map.keySet().iterator(); // 반복자를 이용해서 출력
         while (iterator.hasNext()) {
             int key = (int) iterator.next(); // 키 얻기
-            Order order = (Order) map.get(key);
-            System.out.printf("주문식별번호 : %d, 고객식별번호 : %d, 고객이름: %s, 상품식별번호 : %d, 상품명 : %s\n",
-                    order.getOrderNumber(), order.getCustomerNumber().getCustomerNumber(),
-                    order.getCustomerNumber().getCustomerName(),
-                    order.getProductNumber().getProductNumber(),
-                    order.getProductNumber().getProductName());
+            OrderIntType order = (OrderIntType) map.get(key);
+            System.out.printf("주문식별번호 : %d, ", order.getOrderNumber());
+            
+            for(Customer customer : customerList) {
+                if(order.getCustomerNumber() == customer.getCustomerNumber()) {
+                    System.out.printf("고객식별번호 : %d, 고객이름: %s, ", customer.getCustomerNumber(), customer.getCustomerName());
+                }
+            }
+            
+            for(Product product : productList) {
+                if(order.getProductNumber() == product.getProductNumber()) {
+                    System.out.printf("상품식별번호 : %d, 상품명: %s\n", product.getProductNumber(), product.getProductName());
+                }
+            }
         }
-        
     }
 }
