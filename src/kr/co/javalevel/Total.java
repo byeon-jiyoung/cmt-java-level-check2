@@ -1,4 +1,5 @@
 package kr.co.javalevel;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -10,7 +11,7 @@ import java.util.List;
 
 public class Total {
     public static void main(String[] args) {
-        String dir = System.getProperty("user.dir");
+        String dir = System.getProperty("user.dir") + File.separator + "csv" + File.separator;
         List<String> customerList = loadFile(dir + File.separator + "customer.csv");
         List<String> productList = loadFile(dir + File.separator + "product.csv");
         List<String> orderList = loadFile(dir + File.separator + "order.csv");
